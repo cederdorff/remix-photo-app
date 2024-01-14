@@ -17,12 +17,9 @@ export async function loader({ params }) {
 
 export default function Photo() {
     const { photo } = useLoaderData();
-    console.log(photo);
     return (
         <div className="page">
-            <h1>Photo Placeholder page</h1>
-            <p>Photo id: {photo.id}</p>
-            <p>Photo caption: {photo.caption}</p>
+            <h1>{photo.caption}</h1>
             <img src={photo.image} alt={photo.caption} />
         </div>
     );
