@@ -1,5 +1,5 @@
 import UserAvatar from "./UserAvatar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@remix-run/react";
 
 export default function PhotoCard({ photo }) {
     const navigate = useNavigate();
