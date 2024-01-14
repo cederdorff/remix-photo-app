@@ -1,5 +1,4 @@
 export function mapFirebaseDocuments(docs) {
-    console.log("docs", docs);
     return docs.documents.map(doc => mapFirebaseDocument(doc));
 }
 
