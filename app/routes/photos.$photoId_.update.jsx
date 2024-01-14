@@ -2,10 +2,10 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { mapFirebaseDocument } from "../helpers/firebaseDataMapper";
 
-export function meta({ data }) {
+export function meta() {
     return [
         {
-            title: `Remix Photo App - ${data.photo.caption || "Photo"}`
+            title: "Remix Photo App - Update"
         }
     ];
 }
