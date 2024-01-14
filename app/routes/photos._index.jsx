@@ -21,9 +21,6 @@ export default function Photos() {
     return (
         <div className="page">
             <h1>Photos</h1>
-            <p>
-                This is a simple photo app built with <a href="https://remix.run">Remix</a>.
-            </p>
             <section className="grid">
                 {photos.map(photo => (
                     <PhotoCard photo={photo} key={photo.id} />
