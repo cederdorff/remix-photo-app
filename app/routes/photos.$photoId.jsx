@@ -2,9 +2,13 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { mapFirebaseDocument } from "../helpers/firebaseDataMapper";
 
-export const meta = () => {
-    return [{ title: "Remix Photo App" }];
-};
+export function meta({ data }) {
+    return [
+        {
+            title: `Remix Photo App - ${data.photo.caption || "Photo"}`
+        }
+    ];
+}
 
 export async function loader({ params }) {
     const response = await fetch(
