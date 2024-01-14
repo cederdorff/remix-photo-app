@@ -6,51 +6,51 @@
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  root: true,
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    root: true,
+    parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: {
+            jsx: true
+        }
     },
-  },
-  env: {
-    browser: true,
-    commonjs: true,
-    es6: true,
-  },
+    env: {
+        browser: true,
+        commonjs: true,
+        es6: true
+    },
 
-  // Base config
-  extends: ["eslint:recommended"],
+    // Base config
+    extends: ["eslint:recommended"],
 
-  overrides: [
-    {
-      files: ["**/*.{js,jsx}"],
-      plugins: ["react", "jsx-a11y"],
-      extends: [
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended",
-      ],
-      settings: {
-        react: {
-          version: "detect",
+    overrides: [
+        {
+            files: ["**/*.{js,jsx}"],
+            plugins: ["react", "jsx-a11y"],
+            extends: [
+                "plugin:react/recommended",
+                "plugin:react/jsx-runtime",
+                "plugin:react-hooks/recommended",
+                "plugin:jsx-a11y/recommended"
+            ],
+            settings: {
+                react: {
+                    version: "detect"
+                },
+                formComponents: ["Form"],
+                linkComponents: [
+                    { name: "Link", linkAttribute: "to" },
+                    { name: "NavLink", linkAttribute: "to" }
+                ]
+            }
         },
-        formComponents: ["Form"],
-        linkComponents: [
-          { name: "Link", linkAttribute: "to" },
-          { name: "NavLink", linkAttribute: "to" },
-        ],
-      },
-    },
 
-    // Node
-    {
-      files: [".eslintrc.js"],
-      env: {
-        node: true,
-      },
-    },
-  ],
+        // Node
+        {
+            files: [".eslintrc.js"],
+            env: {
+                node: true
+            }
+        }
+    ]
 };
