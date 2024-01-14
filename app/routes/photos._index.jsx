@@ -11,11 +11,8 @@ export async function loader() {
     const response = await fetch(
         "https://firestore.googleapis.com/v1/projects/race-photo-app/databases/(default)/documents/photos"
     );
-
     const docs = await response.json();
-
     const photos = mapFirebaseDocuments(docs);
-
     return json({ photos });
 }
 
