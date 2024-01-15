@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import { mapFirebaseDocument } from "../helpers/firebaseDataMapper";
 
 export function meta({ data }) {
@@ -21,10 +21,12 @@ export async function loader({ params }) {
 
 export default function Photo() {
     const { photo } = useLoaderData();
-    const navigate = useNavigate();
 
-    function handleUpdateClicked() {
-        navigate(`/photos/${photo.id}/update`);
+    function confirmDelete(event) {
+        const response = confirm("Please confirm you want to delete this photo.");
+        if (!response) {
+            event.preventDefault();
+        }
     }
 
     return (
@@ -32,10 +34,12 @@ export default function Photo() {
             <h1>{photo.caption}</h1>
             <img src={photo.image} alt={photo.caption} />
             <div>
-                <button type="button" onClick={handleUpdateClicked}>
-                    Update
-                </button>
-                <button>Delete</button>
+                <Form action="update">
+                    <button>Update</button>
+                </Form>
+                <Form action="destroy" method="post" onSubmit={confirmDelete}>
+                    <button>Delete</button>
+                </Form>
             </div>
         </div>
     );
