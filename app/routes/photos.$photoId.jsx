@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { mapFirebaseDocument } from "../helpers/firebaseDataMapper";
+import PhotoCard from "../components/PhotoCard";
 
 export function meta({ data }) {
     return [
@@ -32,7 +33,8 @@ export default function Photo() {
     return (
         <div className="page">
             <h1>{photo.caption}</h1>
-            <img src={photo.image} alt={photo.caption} />
+
+            <PhotoCard photo={photo} />
             <div className="btns">
                 <Form action="update">
                     <button>Update</button>
