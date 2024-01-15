@@ -1,5 +1,5 @@
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, Form } from "@remix-run/react";
+import { useLoaderData, Form, useNavigate } from "@remix-run/react";
 import { mapFirebaseDocument } from "../helpers/firebaseDataMapper";
 import { useState } from "react";
 
@@ -23,21 +23,47 @@ export async function loader({ params }) {
 export default function UpdatePhoto() {
     const { photo } = useLoaderData();
     const [image, setImage] = useState(photo.image);
+    const navigate = useNavigate();
+
+    function handleCancel() {
+        navigate(-1);
+    }
 
     return (
         <div className="page">
             <Form method="post">
-                <input
-                    name="caption"
-                    type="text"
-                    defaultValue={photo.caption}
-                    aria-label="caption"
-                    placeholder="Write a caption"
-                />
+                <p>
+                    <label>
+                        <span>Caption</span>
+                        <input
+                            name="caption"
+                            type="text"
+                            defaultValue={photo.caption}
+                            aria-label="caption"
+                            placeholder="Write a caption"
+                        />
+                    </label>
+                </p>
+
+                <p>
+                    <span>Image</span>
+                    <input
+                        name="image"
+                        type="url"
+                        onChange={e => setImage(e.target.value)}
+                        defaultValue={photo.image}
+                    />
+                    <img className="image-preview" src={image} alt="Choose" />
+                </p>
+
                 <input name="uid" type="text" defaultValue={photo.uid} hidden />
-                <input name="image" type="url" onChange={e => setImage(e.target.value)} defaultValue={photo.image} />
-                <img className="image-preview" src={image} alt="Choose" />
-                <button>Update</button>
+
+                <p>
+                    <button>Save</button>
+                    <button type="button" onClick={handleCancel}>
+                        Cancel
+                    </button>
+                </p>
             </Form>
         </div>
     );
@@ -66,7 +92,5 @@ export async function action({ request, params }) {
     );
     if (response.ok) {
         return redirect(`/photos/${params.photoId}`);
-    } else {
-        return json({ message: "Something went wrong" }, { status: 500 });
     }
 }
