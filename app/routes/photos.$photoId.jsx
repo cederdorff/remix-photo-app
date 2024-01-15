@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 import { mapFirebaseDocument } from "../helpers/firebaseDataMapper";
 
 export function meta({ data }) {
@@ -21,10 +21,22 @@ export async function loader({ params }) {
 
 export default function Photo() {
     const { photo } = useLoaderData();
+    const navigate = useNavigate();
+
+    function handleUpdateClicked() {
+        navigate(`/photos/${photo.id}/update`);
+    }
+
     return (
         <div className="page">
             <h1>{photo.caption}</h1>
             <img src={photo.image} alt={photo.caption} />
+            <div>
+                <button type="button" onClick={handleUpdateClicked}>
+                    Update
+                </button>
+                <button>Delete</button>
+            </div>
         </div>
     );
 }
