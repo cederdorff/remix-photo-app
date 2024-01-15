@@ -13,6 +13,7 @@ export async function loader() {
     );
     const docs = await response.json();
     const photos = mapFirebaseDocuments(docs);
+    photos.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime()); // sort by newest first
     return json({ photos });
 }
 
