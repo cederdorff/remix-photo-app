@@ -214,6 +214,7 @@ h3 {
     transition: 0.5s;
     animation: fadeIn 0.5s;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 .grid > article ::first-letter {
