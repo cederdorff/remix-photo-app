@@ -70,6 +70,48 @@ button:active {
     transform: translateY(1px);
 }
 
+/* ---------- Form Styling ---------- */
+
+#contact h1 form button {
+    box-shadow: none;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 0;
+}
+#contact h1 form button[value="true"] {
+    color: #a4a4a4;
+}
+#contact h1 form button[value="true"]:hover,
+#contact h1 form button[value="false"] {
+    color: #eeb004;
+}
+form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1em;
+    max-width: 40rem;
+    align-items: center;
+}
+
+form[action$="destroy"] button {
+    color: #f44250;
+}
+
+form input {
+    width: 100%;
+}
+
+form .btns {
+    grid-column: 2;
+    display: flex;
+    gap: 0.5em;
+}
+
+form img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
 /* ---------- Navigation Styling ---------- */
 nav {
     background-color: var(--green);

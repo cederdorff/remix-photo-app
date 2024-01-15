@@ -1,5 +1,5 @@
 import { redirect } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { Form, useNavigate } from "@remix-run/react";
 import { useState } from "react";
 
 export const meta = () => {
@@ -7,24 +7,40 @@ export const meta = () => {
 };
 export default function AddPhoto() {
     const [image, setImage] = useState("");
+    const navigate = useNavigate();
+
+    function handleCancel() {
+        navigate(-1);
+    }
 
     return (
         <div className="page">
             <h1>Add a Photo</h1>
-            <Form id="contact-form" method="post">
-                <p>
-                    <span>Caption</span>
-                    <input name="caption" type="text" aria-label="caption" placeholder="Write a caption..." />
-                </p>
-                <label>
-                    <span>Image URL</span>
-                    <input name="image" type="url" onChange={e => setImage(e.target.value)} />
-                    {image && <img className="image-preview" src={image} alt="Choose" />}
-                </label>
-                <p>
+            <Form id="photo-form" method="post">
+                <label htmlFor="caption">Caption</label>
+                <input id="caption" name="caption" type="text" aria-label="caption" placeholder="Write a caption..." />
+                <label htmlFor="image">Image URL</label>
+
+                <input
+                    name="image"
+                    type="url"
+                    onChange={e => setImage(e.target.value)}
+                    placeholder="Paste an image URL..."
+                />
+
+                {image && (
+                    <>
+                        <label htmlFor="image-preview">Image Preview</label>
+                        <img id="image-preview" className="image-preview" src={image} alt="Choose" />
+                    </>
+                )}
+
+                <div className="btns">
                     <button type="submit">Save</button>
-                    <button type="button">Cancel</button>
-                </p>
+                    <button type="button" onClick={handleCancel}>
+                        Cancel
+                    </button>
+                </div>
             </Form>
         </div>
     );
