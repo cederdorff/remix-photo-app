@@ -19,8 +19,8 @@ export default function AddPhoto() {
             <Form id="photo-form" method="post">
                 <label htmlFor="caption">Caption</label>
                 <input id="caption" name="caption" type="text" aria-label="caption" placeholder="Write a caption..." />
-                <label htmlFor="image">Image URL</label>
 
+                <label htmlFor="image">Image URL</label>
                 <input
                     name="image"
                     type="url"
@@ -36,7 +36,7 @@ export default function AddPhoto() {
                 )}
 
                 <div className="btns">
-                    <button type="submit">Save</button>
+                    <button>Save</button>
                     <button type="button" onClick={handleCancel}>
                         Cancel
                     </button>

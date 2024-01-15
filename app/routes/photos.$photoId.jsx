@@ -33,7 +33,7 @@ export default function Photo() {
         <div className="page">
             <h1>{photo.caption}</h1>
             <img src={photo.image} alt={photo.caption} />
-            <div>
+            <div className="btns">
                 <Form action="update">
                     <button>Update</button>
                 </Form>

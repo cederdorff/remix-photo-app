@@ -31,39 +31,42 @@ export default function UpdatePhoto() {
 
     return (
         <div className="page">
-            <Form method="post">
-                <p>
-                    <label>
-                        <span>Caption</span>
-                        <input
-                            name="caption"
-                            type="text"
-                            defaultValue={photo.caption}
-                            aria-label="caption"
-                            placeholder="Write a caption"
-                        />
-                    </label>
-                </p>
+            <h1>Update Photo</h1>
+            <Form id="photo-form" method="post">
+                <label htmlFor="caption">Caption</label>
+                <input
+                    id="caption"
+                    defaultValue={photo.caption}
+                    name="caption"
+                    type="text"
+                    aria-label="caption"
+                    placeholder="Write a caption..."
+                />
 
-                <p>
-                    <span>Image</span>
-                    <input
-                        name="image"
-                        type="url"
-                        onChange={e => setImage(e.target.value)}
-                        defaultValue={photo.image}
-                    />
-                    <img className="image-preview" src={image} alt="Choose" />
-                </p>
+                <label htmlFor="image">Image URL</label>
+                <input
+                    name="image"
+                    defaultValue={photo.image}
+                    type="url"
+                    onChange={e => setImage(e.target.value)}
+                    placeholder="Paste an image URL..."
+                />
+
+                {image && (
+                    <>
+                        <label htmlFor="image-preview">Image Preview</label>
+                        <img id="image-preview" className="image-preview" src={image} alt="Choose" />
+                    </>
+                )}
 
                 <input name="uid" type="text" defaultValue={photo.uid} hidden />
 
-                <p>
+                <div className="btns">
                     <button>Save</button>
                     <button type="button" onClick={handleCancel}>
                         Cancel
                     </button>
-                </p>
+                </div>
             </Form>
         </div>
     );
