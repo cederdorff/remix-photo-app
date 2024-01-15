@@ -31,9 +31,8 @@ export default function Photo() {
     }
 
     return (
-        <div className="page">
+        <div id="photo-page" className="page">
             <h1>{photo.caption}</h1>
-
             <PhotoCard photo={photo} />
             <div className="btns">
                 <Form action="update">
