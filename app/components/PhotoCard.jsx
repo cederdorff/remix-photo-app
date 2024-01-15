@@ -9,7 +9,7 @@ export default function PhotoCard({ photo }) {
     }
 
     return (
-        <article onClick={handleClick}>
+        <article className="photo-card" onClick={handleClick}>
             <UserAvatar uid={photo.uid} />
             <img src={photo.image} alt={photo.caption} />
             <h3>{photo.caption}</h3>
