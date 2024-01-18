@@ -19,7 +19,9 @@ module.exports = {
         commonjs: true,
         es6: true
     },
-
+    rules: {
+        "react/prop-types": "off"
+    },
     // Base config
     extends: ["eslint:recommended"],
 
@@ -33,6 +35,9 @@ module.exports = {
                 "plugin:react-hooks/recommended",
                 "plugin:jsx-a11y/recommended"
             ],
+            rules: {
+                "react/prop-types": "off"
+            },
             settings: {
                 react: {
                     version: "detect"
