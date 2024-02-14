@@ -3,70 +3,67 @@ import { Form, useNavigate } from "@remix-run/react";
 import { useState } from "react";
 
 export const meta = () => {
-    return [{ title: "Remix Photo App - Add New Photo" }];
+  return [{ title: "Remix Photo App - Add New Photo" }];
 };
 export default function AddPhoto() {
-    const [image, setImage] = useState("");
-    const navigate = useNavigate();
+  const [image, setImage] = useState("https://placehold.co/600x400?text=Add+your+amazing+image");
+  const navigate = useNavigate();
 
-    function handleCancel() {
-        navigate(-1);
-    }
+  function handleCancel() {
+    navigate(-1);
+  }
 
-    return (
-        <div className="page">
-            <h1>Add a Photo</h1>
-            <Form id="photo-form" method="post">
-                <label htmlFor="caption">Caption</label>
-                <input id="caption" name="caption" type="text" aria-label="caption" placeholder="Write a caption..." />
+  return (
+    <div className="page">
+      <h1>Add a Photo</h1>
+      <Form id="photo-form" method="post">
+        <label htmlFor="caption">Caption</label>
+        <input id="caption" name="caption" type="text" aria-label="caption" placeholder="Write a caption..." />
 
-                <label htmlFor="image">Image URL</label>
-                <input
-                    name="image"
-                    type="url"
-                    onChange={e => setImage(e.target.value)}
-                    placeholder="Paste an image URL..."
-                />
+        <label htmlFor="image">Image URL</label>
+        <input name="image" type="url" onChange={e => setImage(e.target.value)} placeholder="Paste an image URL..." />
 
-                {image && (
-                    <>
-                        <label htmlFor="image-preview">Image Preview</label>
-                        <img id="image-preview" className="image-preview" src={image} alt="Choose" />
-                    </>
-                )}
+        <label htmlFor="image-preview">Image Preview</label>
+        <img
+          id="image-preview"
+          className="image-preview"
+          src={image ? image : "https://placehold.co/600x400?text=Paste+an+image+URL"}
+          alt="Choose"
+          onError={e => (e.target.src = "https://placehold.co/600x400?text=Error+loading+image")}
+        />
 
-                <div className="btns">
-                    <button>Save</button>
-                    <button type="button" onClick={handleCancel}>
-                        Cancel
-                    </button>
-                </div>
-            </Form>
+        <div className="btns">
+          <button>Save</button>
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
         </div>
-    );
+      </Form>
+    </div>
+  );
 }
 
 export async function action({ request }) {
-    const formData = await request.formData();
-    const photo = Object.fromEntries(formData);
+  const formData = await request.formData();
+  const photo = Object.fromEntries(formData);
 
-    console.log("photo:", photo);
+  console.log("photo:", photo);
 
-    const photoObj = {
-        fields: {
-            caption: { stringValue: photo.caption },
-            image: { stringValue: photo.image },
-            uid: { stringValue: "IwlCsBmACaF4HOQCKdUB" }
-        }
-    };
-
-    const url = "https://firestore.googleapis.com/v1/projects/race-photo-app/databases/(default)/documents/photos";
-    const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(photoObj)
-    });
-
-    if (response.ok) {
-        return redirect("/photos");
+  const photoObj = {
+    fields: {
+      caption: { stringValue: photo.caption },
+      image: { stringValue: photo.image },
+      uid: { stringValue: "IwlCsBmACaF4HOQCKdUB" }
     }
+  };
+
+  const url = "https://firestore.googleapis.com/v1/projects/race-photo-app/databases/(default)/documents/photos";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(photoObj)
+  });
+
+  if (response.ok) {
+    return redirect("/photos");
+  }
 }
